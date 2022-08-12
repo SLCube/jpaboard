@@ -1,7 +1,6 @@
 package com.slcube.jpaboard.repository;
 
 import com.slcube.jpaboard.domain.Board;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -21,7 +19,7 @@ class BoardRepositoryTest {
     BoardRepository boardRepository;
 
     @Test
-    public void 게시글_작성() throws Exception {
+    public void 게시글_작성() {
         //given
         Board board = new Board();
         board.setTitle("test board title");
@@ -35,9 +33,10 @@ class BoardRepositoryTest {
         //then
 //        assertThat(boardId).isEqualTo(board.getId());
         Board findBoard = boardRepository.findOne(boardId);
-        assertThat(findBoard.getTitle()).isEqualTo(board.getTitle());
-        assertThat(findBoard.getContent()).isEqualTo(board.getContent());
-        assertThat(findBoard.getWriter()).isEqualTo(board.getWriter());
-        assertThat(findBoard.getDeleteYn()).isEqualTo(board.getDeleteYn());
+        assertThat(findBoard.getTitle()).isEqualTo("test board title");
+        assertThat(findBoard.getContent()).isEqualTo("test board content");
+        assertThat(findBoard.getWriter()).isEqualTo("test board writer");
+        assertThat(findBoard.getViewCount()).isEqualTo(0);
+        assertThat(findBoard.getDeleteYn()).isEqualTo("N");
     }
 }
