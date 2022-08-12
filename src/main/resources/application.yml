@@ -3,6 +3,8 @@ spring:
     url: jdbc:h2:tcp://localhost/~/jpaboard
     username: sa
     password:
+    driver-class-name: org.h2.Driver      # 이 항목이 없으면 EntityManagerFactory가 주입이 안되는 것 같다.
+                                          # org.hibernate.HibernateException : Access to DialectResolutionInfo cannot be null when 'hibernate.dialect' not set
 
   jpa:
     hibernate:
