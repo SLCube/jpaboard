@@ -33,11 +33,11 @@ class BoardRepositoryTest {
         Long boardId = boardRepository.save(board);
 
         //then
-        assertThat(boardId).isEqualTo(board.getId());
-//        Board findBoard = boardRepository.findOne(board.getId());
-//        assertThat(findBoard.getTitle()).isEqualTo(board.getTitle());
-//        assertThat(findBoard.getContent()).isEqualTo(board.getContent());
-//        assertThat(findBoard.getWriter()).isEqualTo(board.getWriter());
-//        assertThat(findBoard.getDeleteYn()).isEqualTo(board.getDeleteYn());
+//        assertThat(boardId).isEqualTo(board.getId());
+        Board findBoard = boardRepository.findOne(boardId);
+        assertThat(findBoard.getTitle()).isEqualTo(board.getTitle());
+        assertThat(findBoard.getContent()).isEqualTo(board.getContent());
+        assertThat(findBoard.getWriter()).isEqualTo(board.getWriter());
+        assertThat(findBoard.getDeleteYn()).isEqualTo(board.getDeleteYn());
     }
 }
