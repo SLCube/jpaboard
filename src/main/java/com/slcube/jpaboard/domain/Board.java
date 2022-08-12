@@ -19,11 +19,12 @@ public class Board {
     private String title;
     private String content;
     private String writer;
+    private int viewCount;
     private String deleteYn;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
     public Board() {
-        createdDate = LocalDateTime.now();
-    }
+        viewCount = 0;
+        createdDate = LocalDateTime.now();    }
 }
