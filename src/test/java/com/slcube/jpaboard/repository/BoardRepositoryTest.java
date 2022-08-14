@@ -31,12 +31,32 @@ class BoardRepositoryTest {
         Long boardId = boardRepository.save(board);
 
         //then
-//        assertThat(boardId).isEqualTo(board.getId());
         Board findBoard = boardRepository.findOne(boardId);
         assertThat(findBoard.getTitle()).isEqualTo("test board title");
         assertThat(findBoard.getContent()).isEqualTo("test board content");
         assertThat(findBoard.getWriter()).isEqualTo("test board writer");
         assertThat(findBoard.getViewCount()).isEqualTo(0);
         assertThat(findBoard.getDeleteYn()).isEqualTo("N");
+    }
+
+    @Test
+    public void 게시글_삭제(){
+        //given
+        Board board = new Board();
+        board.setTitle("test board title");
+        board.setContent("test board content");
+        board.setWriter("test board writer");
+        board.setViewCount(0);
+        board.setDeleteYn("N");
+
+        Long boardId = boardRepository.save(board);
+
+        //when
+        Long deleteBoardId = boardRepository.remove(boardId);
+
+        Board findBoard = boardRepository.findOne(deleteBoardId);
+
+        //then
+        assertThat(findBoard.getDeleteYn()).isEqualTo("Y");
     }
 }
