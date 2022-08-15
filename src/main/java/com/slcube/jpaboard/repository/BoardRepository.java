@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -21,6 +22,19 @@ public class BoardRepository {
         return em.createQuery("select b from Board b where b.id = :boardId and b.deleteYn = 'N'", Board.class)
                 .setParameter("boardId", boardId)
                 .getSingleResult();
+    }
+
+    public List<Board> findAll() {
+        return em.createQuery("select b from Board b where b.deleteYn = 'N'", Board.class)
+                .getResultList();
+    }
+
+    public Long update(Board board) throws Exception {
+        Board findBoard = findOne(board.getId());
+        findBoard.setTitle(board.getTitle());
+        findBoard.setContent(board.getContent());
+
+        return board.getId();
     }
 
     public Long remove(Long boardId) throws Exception {
