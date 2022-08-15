@@ -42,6 +42,31 @@ class BoardRepositoryTest {
     }
 
     @Test
+    public void 게시글_수정() throws Exception {
+        //given
+        Board board = new Board();
+        board.setTitle("test board title");
+        board.setContent("test board content");
+        board.setWriter("test board writer");
+        board.setViewCount(0);
+        board.setDeleteYn("N");
+
+        Long saveBoardId = boardRepository.save(board);
+
+        Board findBoard = boardRepository.findOne(saveBoardId);
+        findBoard.setTitle("test board modified title");
+        findBoard.setContent("test board modified content");
+
+        //when
+        Long updateBoardId = boardRepository.update(findBoard);
+
+        //then
+        Board findUpdateBoard = boardRepository.findOne(updateBoardId);
+        assertThat(findUpdateBoard.getTitle()).isEqualTo("test board modified title");
+        assertThat(findUpdateBoard.getContent()).isEqualTo("test board modified content");
+    }
+
+    @Test
     public void 게시글_삭제() throws Exception {
         //given
         Board board = new Board();
