@@ -22,7 +22,7 @@ class BoardServiceTest {
     BoardService boardService;
 
     @Test
-    void 게시글_작성() {
+    void 게시글_작성() throws Exception {
         //given
         Board board = new Board();
         board.setTitle("test board title");
