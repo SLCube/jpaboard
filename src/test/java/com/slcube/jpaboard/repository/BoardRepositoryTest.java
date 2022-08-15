@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
+
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
@@ -19,7 +21,7 @@ class BoardRepositoryTest {
     BoardRepository boardRepository;
 
     @Test
-    public void 게시글_작성() {
+    public void 게시글_작성() throws Exception {
         //given
         Board board = new Board();
         board.setTitle("test board title");
@@ -40,7 +42,7 @@ class BoardRepositoryTest {
     }
 
     @Test
-    public void 게시글_삭제(){
+    public void 게시글_삭제() throws Exception {
         //given
         Board board = new Board();
         board.setTitle("test board title");
@@ -54,9 +56,7 @@ class BoardRepositoryTest {
         //when
         Long deleteBoardId = boardRepository.remove(boardId);
 
-        Board findBoard = boardRepository.findOne(deleteBoardId);
-
         //then
-        assertThat(findBoard.getDeleteYn()).isEqualTo("Y");
+        assertThatThrownBy(() -> boardRepository.findOne(deleteBoardId)).isInstanceOf(NoResultException.class);
     }
 }
