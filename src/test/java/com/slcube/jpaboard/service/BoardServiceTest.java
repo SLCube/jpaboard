@@ -1,8 +1,6 @@
 package com.slcube.jpaboard.service;
 
 import com.slcube.jpaboard.domain.Board;
-import com.slcube.jpaboard.repository.BoardRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
