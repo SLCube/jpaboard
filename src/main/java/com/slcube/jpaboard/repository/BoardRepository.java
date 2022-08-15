@@ -17,7 +17,15 @@ public class BoardRepository {
         return board.getId();
     }
 
-    public Board findOne(Long boardId) {
-        return em.find(Board.class, boardId);
+    public Board findOne(Long boardId) throws Exception {
+        return em.createQuery("select b from Board b where b.id = :boardId and b.deleteYn = 'N'", Board.class)
+                .setParameter("boardId", boardId)
+                .getSingleResult();
+    }
+
+    public Long remove(Long boardId) throws Exception {
+        Board findBoard = findOne(boardId);
+        findBoard.setDeleteYn("Y");
+        return boardId;
     }
 }
