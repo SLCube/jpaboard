@@ -22,12 +22,7 @@ class BoardServiceTest {
     @Test
     void 게시글_작성() throws Exception {
         //given
-        Board board = new Board();
-        board.setTitle("test board title");
-        board.setContent("test board content");
-        board.setWriter("test board writer");
-        board.setViewCount(0);
-        board.setDeleteYn("N");
+        Board board = new Board("test board title", "test board content", "test board writer");
 
         //when
         Long boardId = boardService.register(board);
@@ -37,5 +32,6 @@ class BoardServiceTest {
         assertThat(findBoard.getTitle()).isEqualTo("test board title");
         assertThat(findBoard.getContent()).isEqualTo("test board content");
         assertThat(findBoard.getWriter()).isEqualTo("test board writer");
+        assertThat(findBoard.getViewCount()).isEqualTo(1);
     }
 }

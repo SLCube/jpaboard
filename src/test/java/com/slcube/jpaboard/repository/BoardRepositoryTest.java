@@ -23,11 +23,7 @@ class BoardRepositoryTest {
     @Test
     public void 게시글_작성() throws Exception {
         //given
-        Board board = new Board();
-        board.setTitle("test board title");
-        board.setContent("test board content");
-        board.setWriter("test board writer");
-        board.setDeleteYn("N");
+        Board board = new Board("test board title", "test board content", "test board writer");
 
         //when
         Long boardId = boardRepository.save(board);
@@ -44,12 +40,7 @@ class BoardRepositoryTest {
     @Test
     public void 게시글_수정() throws Exception {
         //given
-        Board board = new Board();
-        board.setTitle("test board title");
-        board.setContent("test board content");
-        board.setWriter("test board writer");
-        board.setViewCount(0);
-        board.setDeleteYn("N");
+        Board board = new Board("test board title", "test board content", "test board writer");
 
         Long saveBoardId = boardRepository.save(board);
 
@@ -69,12 +60,7 @@ class BoardRepositoryTest {
     @Test
     public void 게시글_삭제() throws Exception {
         //given
-        Board board = new Board();
-        board.setTitle("test board title");
-        board.setContent("test board content");
-        board.setWriter("test board writer");
-        board.setViewCount(0);
-        board.setDeleteYn("N");
+        Board board = new Board("test board title", "test board content", "test board writer");
 
         Long boardId = boardRepository.save(board);
 

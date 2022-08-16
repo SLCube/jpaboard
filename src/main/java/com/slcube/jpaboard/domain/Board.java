@@ -1,14 +1,15 @@
 package com.slcube.jpaboard.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
 
     @Id
@@ -24,7 +25,28 @@ public class Board {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-    public Board() {
+    public Board(String title, String content, String writer) {
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
         viewCount = 0;
-        createdDate = LocalDateTime.now();    }
+        deleteYn = "N";
+        createdDate = LocalDateTime.now();
+    }
+
+    public void increaseViewCount() {
+        this.viewCount++;
+    }
+
+    public void deleteBoard() {
+        this.deleteYn = "Y";
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

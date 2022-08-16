@@ -18,6 +18,8 @@ public class BoardService {
     }
 
     public Board findOne(Long boardId) throws Exception {
-        return boardRepository.findOne(boardId);
+        Board findBoard = boardRepository.findOne(boardId);
+        findBoard.increaseViewCount();
+        return findBoard;
     }
 }
