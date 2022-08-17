@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +36,7 @@ class BoardServiceTest {
     }
 
     @Test
-    @Rollback(value = false)
+//    @Rollback(value = false)
     void 게시글_수정() throws Exception {
         //given
         Board board = new Board("test board title", "test board content", "test board writer");
