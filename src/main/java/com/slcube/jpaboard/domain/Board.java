@@ -33,6 +33,8 @@ public class Board {
         deleteYn = "N";
         createdDate = LocalDateTime.now();
     }
+    
+    // 비즈니스 로직
 
     public void increaseViewCount() {
         this.viewCount++;
@@ -42,11 +44,16 @@ public class Board {
         this.deleteYn = "Y";
     }
 
-    public void setTitle(String title) {
+    public void modifiedBoard(String title, String content) {
         this.title = title;
-    }
-
-    public void setContent(String content) {
         this.content = content;
     }
+
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
+//
+//    public void setContent(String content) {
+//        this.content = content;
+//    }
 }
