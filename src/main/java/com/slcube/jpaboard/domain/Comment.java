@@ -3,10 +3,7 @@ package com.slcube.jpaboard.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,4 +21,8 @@ public class Comment {
     private String deleteYn;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
+
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
 }
