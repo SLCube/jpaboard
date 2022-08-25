@@ -1,6 +1,7 @@
 package com.slcube.jpaboard.service;
 
 import com.slcube.jpaboard.domain.Board;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,19 @@ class BoardServiceTest {
     @Autowired
     BoardService boardService;
 
-    @Test
-    void 게시글_작성() throws Exception {
-        //given
-//        Board board = new Board("test board title", "test board content", "test board writer");
-        Board board = Board.builder()
+    Board board;
+
+    @BeforeEach
+    public void given() {
+        this.board = Board.builder()
                 .title("test board title")
                 .content("test board content")
                 .writer("test board writer")
                 .build();
+    }
 
+    @Test
+    void 게시글_작성() throws Exception {
         //when
         Long boardId = boardService.register(board);
 
@@ -43,12 +47,6 @@ class BoardServiceTest {
     @Test
     void 게시글_수정() throws Exception {
         //given
-        Board board = Board.builder()
-                .title("test board title")
-                .content("test board content")
-                .writer("test board writer")
-                .build();
-
         Long boardId = boardService.register(board);
 
         Board findBoard = boardService.findOne(boardId);
