@@ -41,10 +41,13 @@ class BoardServiceTest {
     }
 
     @Test
-//    @Rollback(value = false)
     void 게시글_수정() throws Exception {
         //given
-        Board board = new Board("test board title", "test board content", "test board writer");
+        Board board = Board.builder()
+                .title("test board title")
+                .content("test board content")
+                .writer("test board writer")
+                .build();
 
         Long boardId = boardService.register(board);
 

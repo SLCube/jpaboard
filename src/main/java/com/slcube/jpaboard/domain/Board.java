@@ -44,11 +44,16 @@ public class Board {
         this.deleteYn = "Y";
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void modifiedBoard(String modifiedTitle, String modifiedContent) {
+        this.title = modifiedTitle;
+        this.content = modifiedContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+//    public void setTitle(String title) {
+//        this.title = title;
+//    }
+//
+//    public void setContent(String content) {
+//        this.content = content;
+//    }
 }
