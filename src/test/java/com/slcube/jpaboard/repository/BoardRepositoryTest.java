@@ -23,7 +23,12 @@ class BoardRepositoryTest {
     @Test
     public void 게시글_작성() throws Exception {
         //given
-        Board board = new Board("test board title", "test board content", "test board writer");
+//        Board board = new Board("test board title", "test board content", "test board writer");
+        Board board = Board.builder()
+                .title("test board title")
+                .content("test board content")
+                .writer("test board writer")
+                .build();
 
         //when
         Long boardId = boardRepository.save(board);
@@ -40,7 +45,12 @@ class BoardRepositoryTest {
     @Test
     public void 게시글_수정() throws Exception {
         //given
-        Board board = new Board("test board title", "test board content", "test board writer");
+//        Board board = new Board("test board title", "test board content", "test board writer");
+        Board board = Board.builder()
+                .title("test board title")
+                .content("test board content")
+                .writer("test board writer")
+                .build();
 
         Long saveBoardId = boardRepository.save(board);
 
@@ -60,7 +70,12 @@ class BoardRepositoryTest {
     @Test
     public void 게시글_삭제() throws Exception {
         //given
-        Board board = new Board("test board title", "test board content", "test board writer");
+//        Board board = new Board("test board title", "test board content", "test board writer");
+        Board board = Board.builder()
+                .title("test board title")
+                .content("test board content")
+                .writer("test board writer")
+                .build();
 
         Long boardId = boardRepository.save(board);
 

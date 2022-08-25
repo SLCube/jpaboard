@@ -1,6 +1,7 @@
 package com.slcube.jpaboard.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +26,8 @@ public class Board {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-    public Board(String title, String content, String writer) {
+    @Builder
+    private Board(String title, String content, String writer) {
         this.title = title;
         this.content = content;
         this.writer = writer;

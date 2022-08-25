@@ -22,7 +22,12 @@ class BoardServiceTest {
     @Test
     void 게시글_작성() throws Exception {
         //given
-        Board board = new Board("test board title", "test board content", "test board writer");
+//        Board board = new Board("test board title", "test board content", "test board writer");
+        Board board = Board.builder()
+                .title("test board title")
+                .content("test board content")
+                .writer("test board writer")
+                .build();
 
         //when
         Long boardId = boardService.register(board);
