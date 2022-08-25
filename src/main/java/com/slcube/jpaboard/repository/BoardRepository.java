@@ -29,13 +29,13 @@ public class BoardRepository {
                 .getResultList();
     }
 
-    public Long update(Board board) throws Exception {
-        Board findBoard = findOne(board.getId());
-        findBoard.setTitle(board.getTitle());
-        findBoard.setContent(board.getContent());
-
-        return board.getId();
-    }
+//    public Long update(Board board) throws Exception {
+//        Board findBoard = findOne(board.getId());
+//        findBoard.setTitle(board.getTitle());
+//        findBoard.setContent(board.getContent());
+//
+//        return board.getId();
+//    }
 
     public Long remove(Long boardId) throws Exception {
         Board findBoard = findOne(boardId);

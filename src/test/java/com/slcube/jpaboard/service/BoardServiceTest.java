@@ -39,4 +39,21 @@ class BoardServiceTest {
         assertThat(findBoard.getWriter()).isEqualTo("test board writer");
         assertThat(findBoard.getViewCount()).isEqualTo(1);
     }
+
+    @Test
+//    @Rollback(value = false)
+    void 게시글_수정() throws Exception {
+        //given
+        Board board = new Board("test board title", "test board content", "test board writer");
+
+        Long boardId = boardService.register(board);
+
+        Board findBoard = boardService.findOne(boardId);
+        findBoard.modifiedBoard("test board modified title", "test board modified content");
+
+        Board findModifiedBoard = boardService.findOne(boardId);
+
+        assertThat(findModifiedBoard.getTitle()).isEqualTo("test board modified title");
+        assertThat(findModifiedBoard.getContent()).isEqualTo("test board modified content");
+    }
 }
