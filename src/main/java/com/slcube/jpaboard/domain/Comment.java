@@ -1,9 +1,6 @@
 package com.slcube.jpaboard.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,6 +26,7 @@ public class Comment {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    @Builder
     private Comment(String content, String writer, Board board) {
         this.content = content;
         this.writer = writer;
@@ -37,8 +35,12 @@ public class Comment {
     }
 
     public static Comment createComment(String content, String writer, Board board) {
-        Comment comment = new Comment(content, writer, board);
-
+        Comment comment = Comment.builder()
+                .content(content)
+                .writer(writer)
+                .board(board)
+                .build();
+        
         return comment;
     }
 }
