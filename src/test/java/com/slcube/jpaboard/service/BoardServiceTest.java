@@ -1,34 +1,41 @@
 package com.slcube.jpaboard.service;
 
 import com.slcube.jpaboard.domain.Board;
+import com.slcube.jpaboard.repository.BoardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.*;
 
 
-@SpringBootTest
-@ExtendWith(SpringExtension.class)
-@Transactional
+@ExtendWith(MockitoExtension.class)
 class BoardServiceTest {
 
-    @Autowired
+    @InjectMocks
     BoardService boardService;
+
+    @Mock
+    BoardRepository boardRepository;
 
     Board board;
 
     @BeforeEach
-    public void given() {
+    public void given() throws Exception {
         this.board = Board.builder()
                 .title("test board title")
                 .content("test board content")
                 .writer("test board writer")
                 .build();
+
+        Mockito.doAnswer(invocation -> 1L)
+                .when(boardRepository).save(board);
+        Mockito.doAnswer(invocation -> board)
+                .when(boardRepository).findOne(1L);
     }
 
     @Test
