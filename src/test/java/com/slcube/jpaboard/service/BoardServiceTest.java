@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -31,11 +31,11 @@ class BoardServiceTest {
                 .content("test board content")
                 .writer("test board writer")
                 .build();
-
-        Mockito.doAnswer(invocation -> 1L)
+        Long boardId = 1L;
+        doAnswer(invocation -> boardId)
                 .when(boardRepository).save(board);
-        Mockito.doAnswer(invocation -> board)
-                .when(boardRepository).findOne(1L);
+        doAnswer(invocation -> board)
+                .when(boardRepository).findOne(boardId);
     }
 
     @Test
