@@ -23,6 +23,7 @@ public class BoardService {
         return findBoard;
     }
 
+    @Transactional
     public void modifiedBoard(Long boardId, String title, String content) throws Exception {
         Board findBoard = boardRepository.findOne(boardId);
         findBoard.modifiedBoard(title, content);
