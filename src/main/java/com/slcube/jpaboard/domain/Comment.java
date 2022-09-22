@@ -22,10 +22,6 @@ public class Comment {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-    @ManyToOne
-    @JoinColumn(name = "board_id")
-    private Board board;
-
     @Builder
     private Comment(String content, String writer, Board board) {
         this.content = content;

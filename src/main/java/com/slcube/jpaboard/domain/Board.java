@@ -4,9 +4,12 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,7 +26,16 @@ public class Board {
     private String writer;
     private int viewCount;
     private String deleteYn;
+
+    @OneToMany
+    @JoinColumn(name = "comment_id")
+    private List<Comment> comments;
+
+    @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdDate;
+
+    @LastModifiedDate
     private LocalDateTime modifiedDate;
 
     @Builder
@@ -48,12 +60,4 @@ public class Board {
         this.title = modifiedTitle;
         this.content = modifiedContent;
     }
-
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public void setContent(String content) {
-//        this.content = content;
-//    }
 }
