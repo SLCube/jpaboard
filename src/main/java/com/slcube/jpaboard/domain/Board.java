@@ -9,7 +9,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.GenerationType.*;
 
 @Entity
 @Getter
@@ -17,7 +20,7 @@ import java.util.List;
 public class Board {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "board_id")
     private Long id;
 
@@ -27,9 +30,8 @@ public class Board {
     private int viewCount;
     private String deleteYn;
 
-    @OneToMany
-    @JoinColumn(name = "comment_id")
-    private List<Comment> comments;
+    @OneToMany(mappedBy = "board")
+    private List<Comment> comments = new ArrayList<>();
 
     @CreatedDate
     @Column(updatable = false)
@@ -43,21 +45,29 @@ public class Board {
         this.title = title;
         this.content = content;
         this.writer = writer;
+        createdDate = LocalDateTime.now();
         viewCount = 0;
         deleteYn = "N";
-        createdDate = LocalDateTime.now();
     }
 
     public void increaseViewCount() {
         this.viewCount++;
     }
 
-    public void deleteBoard() {
+    public Long deleteBoard() {
         this.deleteYn = "Y";
+        return this.getId();
     }
 
-    public void modifiedBoard(String modifiedTitle, String modifiedContent) {
+    public Long modifiedBoard(String modifiedTitle, String modifiedContent) {
         this.title = modifiedTitle;
         this.content = modifiedContent;
+        this.modifiedDate = LocalDateTime.now();
+        return this.getId();
+    }
+
+    public void addComment(Comment comment) {
+        comment.setBoard(this);
+        this.getComments().add(comment);
     }
 }

@@ -3,6 +3,7 @@ package com.slcube.jpaboard.repository;
 import com.slcube.jpaboard.domain.Board;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,8 @@ class BoardRepositoryTest {
     }
 
     @Test
-    public void 게시글_작성() throws Exception {
+    @DisplayName("게시글 작성")
+    public void saveBoardTest() throws Exception {
 
         //when
         Long boardId = boardRepository.save(board);
@@ -49,7 +51,8 @@ class BoardRepositoryTest {
     }
 
     @Test
-    public void 게시글_수정() throws Exception {
+    @DisplayName("게시글 수정")
+    public void modifiedBoardTest() throws Exception {
 
         Long saveBoardId = boardRepository.save(board);
 
@@ -65,7 +68,8 @@ class BoardRepositoryTest {
     }
 
     @Test
-    public void 게시글_삭제() throws Exception {
+    @DisplayName("게시글 삭제")
+    public void deleteBoardTest() throws Exception {
 
         Long boardId = boardRepository.save(board);
 

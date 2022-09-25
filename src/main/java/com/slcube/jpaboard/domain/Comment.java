@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+import static javax.persistence.GenerationType.*;
+
 @Entity
 @Getter
 @Setter
@@ -12,9 +14,13 @@ import java.time.LocalDateTime;
 public class Comment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "comment_id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
 
     private String content;
     private String writer;
@@ -30,13 +36,14 @@ public class Comment {
         this.createdDate = LocalDateTime.now();
     }
 
-    public static Comment createComment(String content, String writer, Board board) {
-        Comment comment = Comment.builder()
-                .content(content)
-                .writer(writer)
-                .board(board)
-                .build();
-        
-        return comment;
+    public Long deleteComment() {
+        this.deleteYn = "Y";
+        return this.getId();
+    }
+
+    public Long modifiedComment(String content) {
+        this.content = content;
+        this.modifiedDate = LocalDateTime.now();
+        return this.getId();
     }
 }

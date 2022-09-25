@@ -39,7 +39,6 @@ public class BoardRepository {
 
     public Long remove(Long boardId) throws Exception {
         Board findBoard = findOne(boardId);
-        findBoard.deleteBoard();
-        return boardId;
+        return findBoard.deleteBoard();
     }
 }

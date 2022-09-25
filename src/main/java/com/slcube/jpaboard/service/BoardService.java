@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -17,15 +19,24 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
-    public Board findOne(Long boardId) throws Exception {
+    public List<Board> findBoards() {
+        return boardRepository.findAll();
+    }
+
+    public Board findBoard(Long boardId) throws Exception {
         Board findBoard = boardRepository.findOne(boardId);
         findBoard.increaseViewCount();
         return findBoard;
     }
 
     @Transactional
-    public void modifiedBoard(Long boardId, String title, String content) throws Exception {
+    public Long modifiedBoard(Long boardId, String title, String content) throws Exception {
         Board findBoard = boardRepository.findOne(boardId);
-        findBoard.modifiedBoard(title, content);
+        return findBoard.modifiedBoard(title, content);
+    }
+
+    public Long deleteBoard(Long boardId) throws Exception {
+        Board findBoard = boardRepository.findOne(boardId);
+        return findBoard.deleteBoard();
     }
 }

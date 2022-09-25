@@ -44,7 +44,7 @@ class BoardServiceTest {
         Long boardId = boardService.register(board);
 
         //then
-        Board findBoard = boardService.findOne(boardId);
+        Board findBoard = boardService.findBoard(boardId);
         assertThat(findBoard.getTitle()).isEqualTo("test board title");
         assertThat(findBoard.getContent()).isEqualTo("test board content");
         assertThat(findBoard.getWriter()).isEqualTo("test board writer");
@@ -56,10 +56,10 @@ class BoardServiceTest {
         //given
         Long boardId = boardService.register(board);
 
-        Board findBoard = boardService.findOne(boardId);
+        Board findBoard = boardService.findBoard(boardId);
         findBoard.modifiedBoard("test board modified title", "test board modified content");
 
-        Board findModifiedBoard = boardService.findOne(boardId);
+        Board findModifiedBoard = boardService.findBoard(boardId);
 
         assertThat(findModifiedBoard.getTitle()).isEqualTo("test board modified title");
         assertThat(findModifiedBoard.getContent()).isEqualTo("test board modified content");
