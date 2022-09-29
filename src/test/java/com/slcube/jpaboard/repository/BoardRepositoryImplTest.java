@@ -1,7 +1,6 @@
 package com.slcube.jpaboard.repository;
 
 import com.slcube.jpaboard.domain.Board;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,10 +17,10 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @Transactional
-class BoardRepositoryTest {
+class BoardRepositoryImplTest {
 
     @Autowired
-    BoardRepository boardRepository;
+    BoardRepositoryImpl boardRepositoryImpl;
 
     Board board;
 
@@ -39,10 +38,10 @@ class BoardRepositoryTest {
     public void saveBoardTest() throws Exception {
 
         //when
-        Long boardId = boardRepository.save(board);
+        Long boardId = boardRepositoryImpl.save(board);
 
         //then
-        Board findBoard = boardRepository.findOne(boardId);
+        Board findBoard = boardRepositoryImpl.findOne(boardId);
         assertThat(findBoard.getTitle()).isEqualTo("test board title");
         assertThat(findBoard.getContent()).isEqualTo("test board content");
         assertThat(findBoard.getWriter()).isEqualTo("test board writer");
@@ -54,15 +53,15 @@ class BoardRepositoryTest {
     @DisplayName("게시글 수정")
     public void modifiedBoardTest() throws Exception {
 
-        Long saveBoardId = boardRepository.save(board);
+        Long saveBoardId = boardRepositoryImpl.save(board);
 
-        Board findBoard = boardRepository.findOne(saveBoardId);
+        Board findBoard = boardRepositoryImpl.findOne(saveBoardId);
 
         //when
         findBoard.modifiedBoard("test board modified title", "test board modified content");
 
         //then
-        Board findUpdateBoard = boardRepository.findOne(saveBoardId);
+        Board findUpdateBoard = boardRepositoryImpl.findOne(saveBoardId);
         assertThat(findUpdateBoard.getTitle()).isEqualTo("test board modified title");
         assertThat(findUpdateBoard.getContent()).isEqualTo("test board modified content");
     }
@@ -71,12 +70,12 @@ class BoardRepositoryTest {
     @DisplayName("게시글 삭제")
     public void deleteBoardTest() throws Exception {
 
-        Long boardId = boardRepository.save(board);
+        Long boardId = boardRepositoryImpl.save(board);
 
         //when
-        Long deleteBoardId = boardRepository.remove(boardId);
+        Long deleteBoardId = boardRepositoryImpl.remove(boardId);
 
         //then
-        assertThatThrownBy(() -> boardRepository.findOne(deleteBoardId)).isInstanceOf(NoResultException.class);
+        assertThatThrownBy(() -> boardRepositoryImpl.findOne(deleteBoardId)).isInstanceOf(NoResultException.class);
     }
 }

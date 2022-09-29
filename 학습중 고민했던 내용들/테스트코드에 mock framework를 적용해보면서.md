@@ -26,7 +26,7 @@ dependencies {
 ```java
 
 import com.slcube.jpaboard.domain.Board;
-import com.slcube.jpaboard.repository.BoardRepository;
+import com.slcube.jpaboard.repository.BoardRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -102,7 +102,7 @@ Mockito를 적용한 뒤의 테스트 코드를 적어보겠다.
 package com.slcube.jpaboard.service;
 
 import com.slcube.jpaboard.domain.Board;
-import com.slcube.jpaboard.repository.BoardRepository;
+import com.slcube.jpaboard.repository.BoardRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

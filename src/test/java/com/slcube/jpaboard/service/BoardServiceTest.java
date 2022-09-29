@@ -1,26 +1,14 @@
 package com.slcube.jpaboard.service;
 
 import com.slcube.jpaboard.domain.Board;
-import com.slcube.jpaboard.repository.BoardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 
-@ExtendWith(MockitoExtension.class)
 class BoardServiceTest {
-
-    @InjectMocks
-    BoardService boardService;
-
-    @Mock
-    BoardRepository boardRepository;
+    BoardService boardService = new BoardService(new FakeBoardRepository());
 
     Board board;
 
@@ -31,11 +19,6 @@ class BoardServiceTest {
                 .content("test board content")
                 .writer("test board writer")
                 .build();
-        Long boardId = 1L;
-        doAnswer(invocation -> boardId)
-                .when(boardRepository).save(board);
-        doAnswer(invocation -> board)
-                .when(boardRepository).findOne(boardId);
     }
 
     @Test

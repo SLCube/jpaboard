@@ -2,7 +2,7 @@ package com.slcube.jpaboard.service;
 
 import com.slcube.jpaboard.domain.Board;
 import com.slcube.jpaboard.domain.Comment;
-import com.slcube.jpaboard.repository.BoardRepository;
+import com.slcube.jpaboard.repository.BoardRepositoryImpl;
 import com.slcube.jpaboard.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +16,10 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final BoardRepository boardRepository;
+    private final BoardRepositoryImpl boardRepositoryImpl;
 
     public Long register(Long boardId, Comment comment) throws Exception {
-        Board findBoard = boardRepository.findOne(boardId);
+        Board findBoard = boardRepositoryImpl.findOne(boardId);
         findBoard.addComment(comment);
         return commentRepository.save(comment);
     }
