@@ -5,6 +5,7 @@ import com.slcube.jpaboard.dto.BoardListResponseDto;
 import com.slcube.jpaboard.dto.BoardResponseDto;
 import com.slcube.jpaboard.dto.BoardSaveRequestDto;
 import com.slcube.jpaboard.dto.BoardUpdateRequestDto;
+import com.slcube.jpaboard.exception.BoardNotFoundException;
 import com.slcube.jpaboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,7 +26,7 @@ public class BoardService {
 
     public Long update(Long boardId, BoardUpdateRequestDto requestDto) {
         Board board = boardRepository.findOne(boardId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + boardId));
+                .orElseThrow(() -> new BoardNotFoundException("해당 게시글이 없습니다. id = " + boardId));
 
         board.update(requestDto);
 
@@ -34,7 +35,7 @@ public class BoardService {
 
     public BoardResponseDto findById(Long boardId) {
         Board board = boardRepository.findOne(boardId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + boardId));
+                .orElseThrow(() -> new BoardNotFoundException("해당 게시글이 없습니다. id = " + boardId));
         board.plusViewCount();
         return new BoardResponseDto(board);
     }
@@ -46,7 +47,7 @@ public class BoardService {
 
     public Long delete(Long boardId) {
         boardRepository.findOne(boardId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + boardId))
+                .orElseThrow(() ->  new BoardNotFoundException("해당 게시글이 없습니다. id = " + boardId))
                 .delete();
 
         return boardId;

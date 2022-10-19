@@ -4,6 +4,7 @@ package com.slcube.jpaboard.service;
 import com.slcube.jpaboard.dto.BoardResponseDto;
 import com.slcube.jpaboard.dto.BoardSaveRequestDto;
 import com.slcube.jpaboard.dto.BoardUpdateRequestDto;
+import com.slcube.jpaboard.exception.BoardNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,7 +56,7 @@ class BoardServiceTest {
         Long deletedId = boardService.delete(saveId);
 
         assertThatThrownBy(() -> boardService.findById(deletedId))
-                .isInstanceOf(new IllegalArgumentException().getClass())
+                .isInstanceOf(new BoardNotFoundException().getClass())
                 .hasMessage("해당 게시글이 없습니다. id = " + deletedId);
     }
 
