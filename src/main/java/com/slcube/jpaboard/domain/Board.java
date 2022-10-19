@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Board extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long id;
 
@@ -25,7 +25,7 @@ public class Board extends BaseEntity {
     @Column(nullable = false)
     private String author;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(length = 3000, nullable = false)
     private String content;
 
     @ColumnDefault(value = "0")
