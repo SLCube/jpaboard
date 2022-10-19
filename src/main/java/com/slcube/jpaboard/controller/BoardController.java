@@ -6,15 +6,17 @@ import com.slcube.jpaboard.dto.BoardSaveRequestDto;
 import com.slcube.jpaboard.dto.BoardUpdateRequestDto;
 import com.slcube.jpaboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
+
 
     @PostMapping("/boards")
     public Long save(@RequestBody BoardSaveRequestDto requestDto) {
@@ -32,8 +34,8 @@ public class BoardController {
     }
 
     @GetMapping("/boards")
-    public List<BoardListResponseDto> findAllDesc() {
-        return boardService.findAll();
+    public Page<BoardListResponseDto> findAllDesc(Pageable pageable) {
+        return boardService.findAll(pageable);
     }
 
     @DeleteMapping("/boards/{id}")
