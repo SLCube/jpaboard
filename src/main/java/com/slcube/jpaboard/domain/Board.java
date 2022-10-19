@@ -35,8 +35,7 @@ public class Board extends BaseEntity {
     private DeleteFlag deleteFlag = DeleteFlag.N;
 
     @Builder
-    private Board(Long id, String title, String author, String content) {
-        this.id = id;
+    private Board(String title, String author, String content) {
         this.title = title;
         this.author = author;
         this.content = content;

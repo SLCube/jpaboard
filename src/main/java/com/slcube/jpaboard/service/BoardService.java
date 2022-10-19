@@ -15,17 +15,15 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    @Transactional
     public Long save(BoardSaveRequestDto requestDto) {
         return boardRepository.save(requestDto.toEntity()).getId();
     }
 
-    @Transactional
     public Long update(Long boardId, BoardUpdateRequestDto requestDto) {
         Board board = boardRepository.findOne(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + boardId));
@@ -42,6 +40,7 @@ public class BoardService {
         return new BoardResponseDto(board);
     }
 
+    @Transactional(readOnly = true)
     public List<BoardListResponseDto> findAll() {
         return boardRepository.findAllDesc().stream()
                 .map(BoardListResponseDto::new)

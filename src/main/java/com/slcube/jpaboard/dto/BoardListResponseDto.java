@@ -10,12 +10,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BoardListResponseDto {
 
+    private Long boardId;
     private String title;
     private String author;
     private int viewCount;
     private LocalDateTime createdDate;
 
     public BoardListResponseDto(Board board) {
+        boardId = board.getId();
         title = board.getTitle();
         author = board.getAuthor();
         viewCount = board.getViewCount();
