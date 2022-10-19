@@ -27,7 +27,7 @@ public class BoardService {
 
     @Transactional
     public Long update(Long boardId, BoardUpdateRequestDto requestDto) {
-        Board board = boardRepository.findById(boardId)
+        Board board = boardRepository.findOne(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + boardId));
 
         board.update(requestDto);
@@ -38,6 +38,7 @@ public class BoardService {
     public BoardResponseDto findById(Long boardId) {
         Board board = boardRepository.findOne(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + boardId));
+        board.plusViewCount();
         return new BoardResponseDto(board);
     }
 

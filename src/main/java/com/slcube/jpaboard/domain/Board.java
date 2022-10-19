@@ -50,4 +50,8 @@ public class Board extends BaseEntity {
     public void delete() {
         deleteFlag = DeleteFlag.Y;
     }
+
+    public void plusViewCount() {
+        viewCount++;
+    }
 }
