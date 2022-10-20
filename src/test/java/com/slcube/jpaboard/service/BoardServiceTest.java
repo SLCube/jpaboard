@@ -1,9 +1,7 @@
 package com.slcube.jpaboard.service;
 
 
-import com.slcube.jpaboard.dto.board.BoardResponseDto;
-import com.slcube.jpaboard.dto.board.BoardSaveRequestDto;
-import com.slcube.jpaboard.dto.board.BoardUpdateRequestDto;
+import com.slcube.jpaboard.dto.board.*;
 import com.slcube.jpaboard.exception.BoardNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,6 +76,30 @@ class BoardServiceTest {
 
         assertThat(responseDto.getTitle()).isEqualTo(updateRequestDto.getTitle());
         assertThat(responseDto.getContent()).isEqualTo(updateRequestDto.getContent());
+    }
+
+    @Test
+    @DisplayName("게시글 검색")
+    void boardSearchTest() {
+        for (int i = 0; i < 10; i++) {
+            BoardSaveRequestDto requestDto = BoardSaveRequestDto.builder()
+                    .title("test board title " + (i + 1))
+                    .content("test board content " + (i + 1))
+                    .author("test board author " + (i + 1))
+                    .build();
+
+            boardService.save(requestDto);
+        }
+
+        PageRequest pageRequest = PageRequest.of(0, 10);
+
+        Page<BoardListResponseDto> noSearchConditionBoards = boardService.findAll(new BoardSearch(), pageRequest);
+        Page<BoardListResponseDto> authorSearchBoards = boardService.findAll(new BoardSearch("test board author 1", null), pageRequest);
+        Page<BoardListResponseDto> contentSearchBoards = boardService.findAll(new BoardSearch(null, "test board content 2"), pageRequest);
+
+        assertThat(noSearchConditionBoards.getContent().size()).isEqualTo(10);
+        assertThat(authorSearchBoards.getContent().get(0).getAuthor()).isEqualTo("test board author 1");
+        assertThat(contentSearchBoards.getContent().get(0).getAuthor()).isEqualTo("test board author 2");
     }
 
     private Long save(BoardSaveRequestDto saveRequestDto) {
