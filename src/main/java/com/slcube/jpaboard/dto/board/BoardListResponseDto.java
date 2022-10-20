@@ -1,4 +1,4 @@
-package com.slcube.jpaboard.dto;
+package com.slcube.jpaboard.dto.board;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;

@@ -1,8 +1,9 @@
 package com.slcube.jpaboard.repository;
 
 import com.slcube.jpaboard.domain.Board;
-import com.slcube.jpaboard.dto.BoardSaveRequestDto;
-import com.slcube.jpaboard.dto.BoardUpdateRequestDto;
+import com.slcube.jpaboard.dto.board.BoardSaveRequestDto;
+import com.slcube.jpaboard.dto.board.BoardUpdateRequestDto;
+import com.slcube.jpaboard.repository.board.BoardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

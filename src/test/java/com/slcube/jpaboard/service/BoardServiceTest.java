@@ -1,9 +1,9 @@
 package com.slcube.jpaboard.service;
 
 
-import com.slcube.jpaboard.dto.BoardResponseDto;
-import com.slcube.jpaboard.dto.BoardSaveRequestDto;
-import com.slcube.jpaboard.dto.BoardUpdateRequestDto;
+import com.slcube.jpaboard.dto.board.BoardResponseDto;
+import com.slcube.jpaboard.dto.board.BoardSaveRequestDto;
+import com.slcube.jpaboard.dto.board.BoardUpdateRequestDto;
 import com.slcube.jpaboard.exception.BoardNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

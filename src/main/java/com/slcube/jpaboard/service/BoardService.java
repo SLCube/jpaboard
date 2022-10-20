@@ -1,12 +1,12 @@
 package com.slcube.jpaboard.service;
 
 import com.slcube.jpaboard.domain.Board;
-import com.slcube.jpaboard.dto.BoardListResponseDto;
-import com.slcube.jpaboard.dto.BoardResponseDto;
-import com.slcube.jpaboard.dto.BoardSaveRequestDto;
-import com.slcube.jpaboard.dto.BoardUpdateRequestDto;
+import com.slcube.jpaboard.dto.board.BoardListResponseDto;
+import com.slcube.jpaboard.dto.board.BoardResponseDto;
+import com.slcube.jpaboard.dto.board.BoardSaveRequestDto;
+import com.slcube.jpaboard.dto.board.BoardUpdateRequestDto;
 import com.slcube.jpaboard.exception.BoardNotFoundException;
-import com.slcube.jpaboard.repository.BoardRepository;
+import com.slcube.jpaboard.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

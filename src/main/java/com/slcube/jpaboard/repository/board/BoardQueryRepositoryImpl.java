@@ -1,10 +1,10 @@
-package com.slcube.jpaboard.repository;
+package com.slcube.jpaboard.repository.board;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.slcube.jpaboard.domain.Board;
 import com.slcube.jpaboard.domain.DeleteFlag;
-import com.slcube.jpaboard.dto.BoardListResponseDto;
-import com.slcube.jpaboard.dto.QBoardListResponseDto;
+import com.slcube.jpaboard.dto.board.BoardListResponseDto;
+import com.slcube.jpaboard.dto.board.QBoardListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

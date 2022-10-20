@@ -1,9 +1,9 @@
 package com.slcube.jpaboard.controller;
 
-import com.slcube.jpaboard.dto.BoardListResponseDto;
-import com.slcube.jpaboard.dto.BoardResponseDto;
-import com.slcube.jpaboard.dto.BoardSaveRequestDto;
-import com.slcube.jpaboard.dto.BoardUpdateRequestDto;
+import com.slcube.jpaboard.dto.board.BoardListResponseDto;
+import com.slcube.jpaboard.dto.board.BoardResponseDto;
+import com.slcube.jpaboard.dto.board.BoardSaveRequestDto;
+import com.slcube.jpaboard.dto.board.BoardUpdateRequestDto;
 import com.slcube.jpaboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

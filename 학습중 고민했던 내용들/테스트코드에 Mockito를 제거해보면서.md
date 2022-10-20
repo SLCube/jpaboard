@@ -71,7 +71,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 package com.slcube.jpaboard.service;
 
 import com.slcube.jpaboard.domain.Board;
-import com.slcube.jpaboard.repository.BoardRepository;
+import com.slcube.jpaboard.repository.board.BoardRepository;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

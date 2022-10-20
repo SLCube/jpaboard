@@ -1,6 +1,6 @@
 package com.slcube.jpaboard.domain;
 
-import com.slcube.jpaboard.dto.BoardUpdateRequestDto;
+import com.slcube.jpaboard.dto.board.BoardUpdateRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +36,9 @@ public class Board extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private DeleteFlag deleteFlag = DeleteFlag.N;
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST)
+    private List<Comment> comments = new ArrayList<>();
+
     @Builder
     private Board(String title, String author, String content) {
         this.title = title;
@@ -52,5 +57,10 @@ public class Board extends BaseEntity {
 
     public void plusViewCount() {
         viewCount++;
+    }
+
+    public void addComment(Comment comment) {
+        this.getComments().add(comment);
+        comment.addBoard(this);
     }
 }

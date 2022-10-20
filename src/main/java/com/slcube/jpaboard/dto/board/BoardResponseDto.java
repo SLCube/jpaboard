@@ -1,11 +1,13 @@
-package com.slcube.jpaboard.dto;
+package com.slcube.jpaboard.dto.board;
 
 import com.slcube.jpaboard.domain.Board;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 public class BoardResponseDto {
 
     private String title;

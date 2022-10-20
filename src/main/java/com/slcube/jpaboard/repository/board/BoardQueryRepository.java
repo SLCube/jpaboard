@@ -1,7 +1,7 @@
-package com.slcube.jpaboard.repository;
+package com.slcube.jpaboard.repository.board;
 
 import com.slcube.jpaboard.domain.Board;
-import com.slcube.jpaboard.dto.BoardListResponseDto;
+import com.slcube.jpaboard.dto.board.BoardListResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
