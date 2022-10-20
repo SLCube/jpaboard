@@ -44,21 +44,28 @@ public class CommentServiceTest {
     @Test
     void saveTest() {
 
-        CommentSaveRequestDto requestDto = CommentSaveRequestDto.builder()
-                .boardId(boardId)
-                .author("test comment author")
-                .content("test comment content")
-                .build();
+        String content = "test comment content";
+        String author = "test comment author";
+        for (int i = 0; i < 11; i++) {
+            CommentSaveRequestDto requestDto = CommentSaveRequestDto.builder()
+                    .boardId(boardId)
+                    .author(author + (i + 1))
+                    .content(content + (i + 1))
+                    .build();
+            commentService.save(requestDto);
+        }
+        Long commentId = 11L;
 
-        Long commentId = commentService.save(requestDto);
 
         PageRequest pageRequest = PageRequest.of(0, 10);
 
-        CommentListResponseDto comment = commentService.findAllDesc(boardId, pageRequest).getContent().get(0);
+        List<CommentListResponseDto> comments = commentService.findAllDesc(boardId, pageRequest).getContent();
+        CommentListResponseDto comment = comments.get(0);
 
         assertThat(comment.getCommentId()).isEqualTo(commentId);
-        assertThat(comment.getContent()).isEqualTo(requestDto.getContent());
-        assertThat(comment.getAuthor()).isEqualTo(requestDto.getAuthor());
+        assertThat(comment.getContent()).isEqualTo(content + commentId);
+        assertThat(comment.getAuthor()).isEqualTo(author + commentId);
+        assertThat(comments.size()).isEqualTo(10);
     }
 
     @Test
