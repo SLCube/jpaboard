@@ -46,6 +46,8 @@ public class CommentQueryRepositoryImpl implements CommentQueryRepository {
                         comment.deleteFlag.eq(DeleteFlag.N)
                 )
                 .orderBy(comment.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
 
         long total = query
