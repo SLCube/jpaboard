@@ -5,6 +5,7 @@ import com.slcube.jpaboard.dto.comment.CommentSaveRequestDto;
 import com.slcube.jpaboard.dto.comment.CommentUpdateRequestDto;
 import com.slcube.jpaboard.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,9 +24,9 @@ public class CommentController {
     @Operation(summary = "댓글 등록")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK !!"),
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
-            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
-            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!", content = @Content),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND !!", content = @Content),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!", content = @Content),
     })
     @PostMapping("/comments")
     public Long save(@RequestBody CommentSaveRequestDto requestDto) {
@@ -35,9 +36,9 @@ public class CommentController {
     @Operation(summary = "댓글 리스트 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK !!"),
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
-            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
-            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!", content = @Content),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND !!", content = @Content),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!", content = @Content),
     })
     @GetMapping("/comments/{boardId}")
     public Page<CommentListResponseDto> findAllDesc(@PathVariable Long boardId, Pageable pageable) {
@@ -47,9 +48,9 @@ public class CommentController {
     @Operation(summary = "댓글 수정")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK !!"),
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
-            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
-            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!", content = @Content),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND !!", content = @Content),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!", content = @Content),
     })
     @PatchMapping("/comments/{id}")
     public Long update(@PathVariable Long commentId, @RequestBody CommentUpdateRequestDto requestDto) {
@@ -59,9 +60,9 @@ public class CommentController {
     @Operation(summary = "게시글 삭제")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK !!"),
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
-            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
-            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!", content = @Content),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND !!", content = @Content),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!", content = @Content),
     })
     @DeleteMapping("/comments/{id}")
     public Long delete(@PathVariable Long commentId) {

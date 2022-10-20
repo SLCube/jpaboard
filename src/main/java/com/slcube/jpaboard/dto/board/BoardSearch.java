@@ -11,14 +11,17 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BoardSearch {
 
-    @Schema(description = "작성자")
+    @Schema(description = "제목(Nullable)")
+    private String title;
+    @Schema(description = "작성자(Nullable)")
     private String author;
 
-    @Schema(description = "내용")
+    @Schema(description = "내용(Nullable)")
     private String content;
 
     @Builder
-    public BoardSearch(String author, String content) {
+    public BoardSearch(String title, String author, String content) {
+        this.title = title;
         this.author = author;
         this.content = content;
     }
