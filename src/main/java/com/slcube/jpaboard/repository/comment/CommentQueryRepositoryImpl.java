@@ -1,5 +1,6 @@
 package com.slcube.jpaboard.repository.comment;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.slcube.jpaboard.domain.Comment;
 import com.slcube.jpaboard.domain.DeleteFlag;
@@ -33,7 +34,7 @@ public class CommentQueryRepositoryImpl implements CommentQueryRepository {
 
     @Override
     public Page<CommentListResponseDto> findAllDesc(Long boardId, Pageable pageable) {
-        List<CommentListResponseDto> content = query
+        JPAQuery<CommentListResponseDto> findAllQuery = query
                 .select(new QCommentListResponseDto(
                         comment.id.as("commentId"),
                         comment.author,
@@ -44,24 +45,15 @@ public class CommentQueryRepositoryImpl implements CommentQueryRepository {
                 .where(
                         comment.board.id.eq(boardId),
                         comment.deleteFlag.eq(DeleteFlag.N)
-                )
+                );
+
+        List<CommentListResponseDto> content = findAllQuery
                 .orderBy(comment.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        long total = query
-                .select(new QCommentListResponseDto(
-                        comment.id.as("comemntId"),
-                        comment.author,
-                        comment.content,
-                        comment.createdDate
-                ))
-                .from(comment)
-                .where(
-                        comment.board.id.eq(boardId),
-                        comment.deleteFlag.eq(DeleteFlag.N)
-                )
+        long total = findAllQuery
                 .fetch()
                 .size();
 

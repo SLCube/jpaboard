@@ -1,6 +1,7 @@
 package com.slcube.jpaboard.repository.board;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.slcube.jpaboard.domain.Board;
 import com.slcube.jpaboard.domain.DeleteFlag;
@@ -36,7 +37,7 @@ public class BoardQueryRepositoryImpl implements BoardQueryRepository {
 
     @Override
     public Page<BoardListResponseDto> findAllDesc(BoardSearch boardSearch, Pageable pageable) {
-        List<BoardListResponseDto> content = query
+        JPAQuery<BoardListResponseDto> findAllQuery = query
                 .select(new QBoardListResponseDto(
                         board.id.as("boardId"),
                         board.title,
@@ -51,27 +52,14 @@ public class BoardQueryRepositoryImpl implements BoardQueryRepository {
                         authorContains(boardSearch.getAuthor()),
                         contentContains(boardSearch.getContent())
                 )
-                .orderBy(board.id.desc())
+                .orderBy(board.id.desc());
+
+        List<BoardListResponseDto> content = findAllQuery
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        long total = query
-                .select(new QBoardListResponseDto(
-                        board.id.as("boardId"),
-                        board.title,
-                        board.author,
-                        board.viewCount,
-                        board.createdDate
-                ))
-                .from(board)
-                .where(
-                        board.deleteFlag.eq(DeleteFlag.N),
-                        titleContains(boardSearch.getTitle()),
-                        authorContains(boardSearch.getAuthor()),
-                        contentContains(boardSearch.getContent())
-                )
-                .orderBy(board.id.desc())
+        long total = findAllQuery
                 .fetch()
                 .size();
 
