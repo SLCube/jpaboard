@@ -36,7 +36,7 @@ public class Board extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private DeleteFlag deleteFlag = DeleteFlag.N;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "board")
     private List<Comment> comments = new ArrayList<>();
 
     @Builder

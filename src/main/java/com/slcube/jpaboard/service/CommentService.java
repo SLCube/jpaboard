@@ -27,7 +27,7 @@ public class CommentService {
                 .orElseThrow(() -> new BoardNotFoundException("해당 게시글이 없습니다. id = " + requestDto.getBoardId()));
         Comment comment = requestDto.toEntity();
         board.addComment(comment);
-        return comment.getId();
+        return commentRepository.save(comment).getId();
     }
 
     public Long update(Long commentId, CommentUpdateRequestDto requestDto) {
