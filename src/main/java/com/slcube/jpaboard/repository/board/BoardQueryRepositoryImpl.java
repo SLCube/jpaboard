@@ -47,8 +47,9 @@ public class BoardQueryRepositoryImpl implements BoardQueryRepository {
                 .from(board)
                 .where(
                         board.deleteFlag.eq(DeleteFlag.N),
-                        authorLike(boardSearch.getAuthor()),
-                        contentLike(boardSearch.getContent())
+                        titleContains(boardSearch.getTitle()),
+                        authorContains(boardSearch.getAuthor()),
+                        contentContains(boardSearch.getContent())
                 )
                 .orderBy(board.id.desc())
                 .offset(pageable.getOffset())
@@ -66,8 +67,9 @@ public class BoardQueryRepositoryImpl implements BoardQueryRepository {
                 .from(board)
                 .where(
                         board.deleteFlag.eq(DeleteFlag.N),
-                        authorLike(boardSearch.getAuthor()),
-                        contentLike(boardSearch.getContent())
+                        titleContains(boardSearch.getTitle()),
+                        authorContains(boardSearch.getAuthor()),
+                        contentContains(boardSearch.getContent())
                 )
                 .orderBy(board.id.desc())
                 .fetch()
@@ -76,11 +78,15 @@ public class BoardQueryRepositoryImpl implements BoardQueryRepository {
         return new PageImpl<>(content, pageable, total);
     }
 
-    private BooleanExpression authorLike(String authorCond) {
-        return hasText(authorCond) ? board.author.likeIgnoreCase(authorCond) : null;
+    private BooleanExpression titleContains(String titleCond) {
+        return hasText(titleCond) ? board.title.containsIgnoreCase(titleCond) : null;
     }
 
-    private BooleanExpression contentLike(String contentCond) {
-        return hasText(contentCond) ? board.content.likeIgnoreCase(contentCond) : null;
+    private BooleanExpression authorContains(String authorCond) {
+        return hasText(authorCond) ? board.author.containsIgnoreCase(authorCond) : null;
+    }
+
+    private BooleanExpression contentContains(String contentCond) {
+        return hasText(contentCond) ? board.content.containsIgnoreCase(contentCond) : null;
     }
 }
