@@ -1,10 +1,7 @@
 package com.slcube.jpaboard.service;
 
 import com.slcube.jpaboard.domain.Board;
-import com.slcube.jpaboard.dto.board.BoardListResponseDto;
-import com.slcube.jpaboard.dto.board.BoardResponseDto;
-import com.slcube.jpaboard.dto.board.BoardSaveRequestDto;
-import com.slcube.jpaboard.dto.board.BoardUpdateRequestDto;
+import com.slcube.jpaboard.dto.board.*;
 import com.slcube.jpaboard.exception.BoardNotFoundException;
 import com.slcube.jpaboard.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,8 +38,8 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public Page<BoardListResponseDto> findAll(Pageable pageable) {
-        return boardRepository.findAllDesc(pageable);
+    public Page<BoardListResponseDto> findAll(BoardSearch boardSearch, Pageable pageable) {
+        return boardRepository.findAllDesc(boardSearch, pageable);
     }
 
     public Long delete(Long boardId) {
