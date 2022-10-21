@@ -30,7 +30,9 @@ public class CommentService {
         Board board = boardRepository.findOne(requestDto.getBoardId())
                 .orElseThrow(() -> new BoardNotFoundException("해당 게시글이 없습니다. id = " + requestDto.getBoardId()));
         Comment comment = requestDto.toEntity();
+
         board.addComment(comment);
+
         return commentRepository.save(comment).getId();
     }
 
@@ -39,6 +41,7 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다. id = " + commentId));
 
         comment.update(requestDto);
+
         return commentId;
     }
 
@@ -56,6 +59,7 @@ public class CommentService {
     public Long delete(Long commentId) {
         Comment comment = commentRepository.findOne(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 없습니다. id = " + commentId));
+
         comment.delete();
 
         return commentId;

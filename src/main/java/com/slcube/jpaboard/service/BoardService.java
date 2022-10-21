@@ -37,7 +37,9 @@ public class BoardService {
     public BoardResponseDto findById(Long boardId) {
         Board board = boardRepository.findOne(boardId)
                 .orElseThrow(() -> new BoardNotFoundException("해당 게시글이 없습니다. id = " + boardId));
+
         board.plusViewCount();
+
         return new BoardResponseDto(board);
     }
 
@@ -53,9 +55,10 @@ public class BoardService {
     }
 
     public Long delete(Long boardId) {
-        boardRepository.findOne(boardId)
-                .orElseThrow(() ->  new BoardNotFoundException("해당 게시글이 없습니다. id = " + boardId))
-                .delete();
+        Board board = boardRepository.findOne(boardId)
+                .orElseThrow(() -> new BoardNotFoundException("해당 게시글이 없습니다. id = " + boardId));
+
+        board.delete();
 
         return boardId;
     }
