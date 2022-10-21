@@ -1,6 +1,6 @@
 package com.slcube.jpaboard.dto.board;
 
-import com.querydsl.core.annotations.QueryProjection;
+import com.slcube.jpaboard.domain.Board;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,12 +26,11 @@ public class BoardListResponseDto {
     @Schema(description = "작성일자")
     private LocalDateTime createdDate;
 
-    @QueryProjection
-    public BoardListResponseDto(Long boardId, String title, String author, int viewCount, LocalDateTime createdDate) {
-        this.boardId = boardId;
-        this.title = title;
-        this.author = author;
-        this.viewCount = viewCount;
-        this.createdDate = createdDate;
+    public BoardListResponseDto(Board board) {
+        boardId = board.getId();
+        title = board.getTitle();
+        author = board.getAuthor();
+        viewCount = board.getViewCount();
+        createdDate = board.getCreatedDate();
     }
 }

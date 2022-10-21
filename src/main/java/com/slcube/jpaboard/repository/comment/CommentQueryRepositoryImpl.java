@@ -4,11 +4,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.slcube.jpaboard.domain.Comment;
 import com.slcube.jpaboard.domain.DeleteFlag;
-import com.slcube.jpaboard.dto.comment.CommentListResponseDto;
-import com.slcube.jpaboard.dto.comment.QCommentListResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -33,30 +29,28 @@ public class CommentQueryRepositoryImpl implements CommentQueryRepository {
     }
 
     @Override
-    public Page<CommentListResponseDto> findAllDesc(Long boardId, Pageable pageable) {
-        JPAQuery<CommentListResponseDto> findAllQuery = query
-                .select(new QCommentListResponseDto(
-                        comment.id.as("commentId"),
-                        comment.author,
-                        comment.content,
-                        comment.createdDate
-                ))
-                .from(comment)
-                .where(
-                        comment.board.id.eq(boardId),
-                        comment.deleteFlag.eq(DeleteFlag.N)
-                );
+    public List<Comment> findAllDesc(Long boardId, Pageable pageable) {
 
-        List<CommentListResponseDto> content = findAllQuery
+         return findAllQuery(boardId)
                 .orderBy(comment.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
+    }
 
-        long total = findAllQuery
+    @Override
+    public long findTotalCount(Long boardId) {
+        return findAllQuery(boardId)
                 .fetch()
                 .size();
+    }
 
-        return new PageImpl<>(content, pageable, total);
+    private JPAQuery<Comment> findAllQuery(Long boardId) {
+        return query
+                .selectFrom(comment)
+                .where(
+                        comment.board.id.eq(boardId),
+                        comment.deleteFlag.eq(DeleteFlag.N)
+                );
     }
 }

@@ -6,9 +6,13 @@ import com.slcube.jpaboard.exception.BoardNotFoundException;
 import com.slcube.jpaboard.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +43,13 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public Page<BoardListResponseDto> findAll(BoardSearch boardSearch, Pageable pageable) {
-        return boardRepository.findAllDesc(boardSearch, pageable);
+        List<BoardListResponseDto> content = boardRepository.findAllDesc(boardSearch, pageable)
+                .stream()
+                .map(BoardListResponseDto::new)
+                .collect(Collectors.toList());
+        long total = boardRepository.findTotalCount(boardSearch);
+
+        return new PageImpl<>(content, pageable, total);
     }
 
     public Long delete(Long boardId) {

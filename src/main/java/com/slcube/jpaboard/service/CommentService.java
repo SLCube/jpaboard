@@ -10,9 +10,13 @@ import com.slcube.jpaboard.repository.board.BoardRepository;
 import com.slcube.jpaboard.repository.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -40,7 +44,13 @@ public class CommentService {
 
     @Transactional(readOnly = true)
     public Page<CommentListResponseDto> findAllDesc(Long boardId, Pageable pageable) {
-        return commentRepository.findAllDesc(boardId, pageable);
+        List<CommentListResponseDto> content = commentRepository.findAllDesc(boardId, pageable)
+                .stream()
+                .map(CommentListResponseDto::new)
+                .collect(Collectors.toList());
+        long total = commentRepository.findTotalCount(boardId);
+
+        return new PageImpl<>(content, pageable, total);
     }
 
     public Long delete(Long commentId) {

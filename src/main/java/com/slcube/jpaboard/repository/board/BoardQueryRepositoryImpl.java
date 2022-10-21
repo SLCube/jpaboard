@@ -5,12 +5,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.slcube.jpaboard.domain.Board;
 import com.slcube.jpaboard.domain.DeleteFlag;
-import com.slcube.jpaboard.dto.board.BoardListResponseDto;
 import com.slcube.jpaboard.dto.board.BoardSearch;
-import com.slcube.jpaboard.dto.board.QBoardListResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -36,34 +32,30 @@ public class BoardQueryRepositoryImpl implements BoardQueryRepository {
     }
 
     @Override
-    public Page<BoardListResponseDto> findAllDesc(BoardSearch boardSearch, Pageable pageable) {
-        JPAQuery<BoardListResponseDto> findAllQuery = query
-                .select(new QBoardListResponseDto(
-                        board.id.as("boardId"),
-                        board.title,
-                        board.author,
-                        board.viewCount,
-                        board.createdDate
-                ))
-                .from(board)
+    public List<Board> findAllDesc(BoardSearch boardSearch, Pageable pageable) {
+        return findAllQuery(boardSearch)
+                .orderBy(board.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+    }
+
+    @Override
+    public long findTotalCount(BoardSearch boardSearch) {
+        return findAllQuery(boardSearch)
+                .fetch()
+                .size();
+    }
+
+    private JPAQuery<Board> findAllQuery(BoardSearch boardSearch) {
+        return query
+                .selectFrom(board)
                 .where(
                         board.deleteFlag.eq(DeleteFlag.N),
                         titleContains(boardSearch.getTitle()),
                         authorContains(boardSearch.getAuthor()),
                         contentContains(boardSearch.getContent())
-                )
-                .orderBy(board.id.desc());
-
-        List<BoardListResponseDto> content = findAllQuery
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-
-        long total = findAllQuery
-                .fetch()
-                .size();
-
-        return new PageImpl<>(content, pageable, total);
+                );
     }
 
     private BooleanExpression titleContains(String titleCond) {
