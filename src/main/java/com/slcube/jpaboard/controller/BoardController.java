@@ -57,7 +57,7 @@ public class BoardController {
         return boardService.findById(id);
     }
 
-    @Operation(summary = "게시글 리스트 조회")
+    @Operation(summary = "게시글 리스트 조회, size는 10으로 고정합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK !!"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST !!", content = @Content),

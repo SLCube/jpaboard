@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class CommentController {
         return commentService.save(requestDto);
     }
 
-    @Operation(summary = "댓글 리스트 조회")
+    @Operation(summary = "댓글 리스트 조회, size는 10으로 고정합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK !!"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST !!", content = @Content),
@@ -41,7 +42,7 @@ public class CommentController {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!", content = @Content),
     })
     @GetMapping("/comments/{boardId}")
-    public Page<CommentListResponseDto> findAllDesc(@PathVariable Long boardId, Pageable pageable) {
+    public Page<CommentListResponseDto> findAllDesc(@PathVariable Long boardId, @ParameterObject Pageable pageable) {
         return commentService.findAllDesc(boardId, pageable);
     }
 
