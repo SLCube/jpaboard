@@ -34,7 +34,7 @@ public class CommentController {
         return commentService.save(requestDto);
     }
 
-    @Operation(summary = "댓글 리스트 조회, size는 10으로 고정합니다.")
+    @Operation(summary = "댓글 리스트 조회", description = "size는 10으로 고정합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK !!"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST !!", content = @Content),
