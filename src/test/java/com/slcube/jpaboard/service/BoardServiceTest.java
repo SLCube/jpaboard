@@ -94,11 +94,11 @@ class BoardServiceTest {
         PageRequest pageRequest = PageRequest.of(0, 10);
 
         Page<BoardListResponseDto> noSearchConditionBoards = boardService.findAll(new BoardSearch(), pageRequest);
-        Page<BoardListResponseDto> authorSearchBoards = boardService.findAll(new BoardSearch(null, "test board author 1", null), pageRequest);
-        Page<BoardListResponseDto> contentSearchBoards = boardService.findAll(new BoardSearch(null, null, "test board content 2"), pageRequest);
+        Page<BoardListResponseDto> authorSearchBoards = boardService.findAll(new BoardSearch(null, "author 3", null), pageRequest);
+        Page<BoardListResponseDto> contentSearchBoards = boardService.findAll(new BoardSearch(null, null, "content 2"), pageRequest);
 
         assertThat(noSearchConditionBoards.getContent().size()).isEqualTo(10);
-        assertThat(authorSearchBoards.getContent().get(0).getAuthor()).isEqualTo("test board author 1");
+        assertThat(authorSearchBoards.getContent().get(0).getAuthor()).isEqualTo("test board author 3");
         assertThat(contentSearchBoards.getContent().get(0).getAuthor()).isEqualTo("test board author 2");
     }
 
